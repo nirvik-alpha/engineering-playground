@@ -1,0 +1,24 @@
+package com.javaguide.springboot.consumer;
+
+import com.javaguide.springboot.dto.User;
+import com.javaguide.springboot.publisher.RabbitMQJsonProducer;
+import com.javaguide.springboot.publisher.RabbitMQProducer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.stereotype.Service;
+
+@Service
+public class RabbitMQJsonConsumer {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(RabbitMQJsonConsumer.class);
+
+    @RabbitListener(queues = {"${rabbitmq.queue.json.name}"})
+    public void consumeJsonMessage(User user){
+
+        LOGGER.info(String.format("Recieved json message -> %s", user.toString()));
+
+    }
+
+
+}
